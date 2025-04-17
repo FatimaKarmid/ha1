@@ -90,5 +90,17 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should correctly calculate the square root of 9")
+    void testSquareRootOfNine() {
+
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(9);
+    calc.pressUnaryOperationKey("√");
+
+    String result = calc.readScreen();
+    assertEquals("3.0", result);
+}
 }
 
