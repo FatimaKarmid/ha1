@@ -119,6 +119,24 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("should calculate chained additions from left to right")
+    void testChainedAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 
 
