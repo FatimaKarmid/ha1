@@ -101,6 +101,27 @@ class CalculatorTest {
 
     String result = calc.readScreen();
     assertEquals("3.0", result);
-}
+    }
+
+
+    @Test
+    @DisplayName("should allow negative sign before entering a digit")
+    void testNegativeBeforeDigit() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(2);
+
+        String expected = "-2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+
+
+
 }
 
