@@ -6,6 +6,7 @@ package htw.berlin.prog2.ha1;
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
+
 public class Calculator {
 
     private String screen = "0";
@@ -62,10 +63,14 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.equals("")) {
+            pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -135,6 +140,7 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
@@ -143,9 +149,16 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+
         screen = Double.toString(result);
+
         if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+
+        if(screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        latestValue = result;
     }
+
 }
